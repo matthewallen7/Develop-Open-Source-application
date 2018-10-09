@@ -22,9 +22,9 @@ namespace Develop_Open_Source_application
          * Appends the distance parameter to {@link #kilometers}
          * @param kilometers the distance traveled 
          */
-        public void addKilometers(double kilometers)
+        public double addKilometers(double kilometers)
         {
-            this.kilometers += kilometers;
+            return kilometers;
         }
 
 

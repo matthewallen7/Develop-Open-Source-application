@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace Develop_Open_Source_application
 {
-    class Vehicle
+    public class Vehicle
     {
-        private String manufacturer;
-        private String model;
-        private int makeYear;
+        public String Manufacturer { get; set; }
+        public String Model { get; set; }
+        public int MakeYear { get; set; }
+        public string RegoNo { get; set; }
+        public double TotalKm { get; set; }
+        public string TankCapactiy { get; set; } 
+        public string Colour { get; set; }
+        public int Services { get; set; }
+        public string Checkservice { get; set; }
         // TODO add Registration Number 
         // TODO add variable for OdometerReading (in KM), 
         // TODO add variable for TankCapacity (in litres)
@@ -24,11 +30,21 @@ namespace Develop_Open_Source_application
          * @param model
          * @param makeYear
          */
-        public Vehicle(String manufacturer, String model, int makeYear)
+        public Vehicle()
         {
-            this.manufacturer = manufacturer;
-            this.model = model;
-            this.makeYear = makeYear;
+
+        }
+        public Vehicle(String manufacturer, String model, int year, string regoNo, double totalKm, string capacity, string colour, int servcies, string checkservices)
+        {
+            Manufacturer = manufacturer;
+            Model = model;
+            MakeYear = year;
+            RegoNo = regoNo;
+            TotalKm = totalKm;
+            TankCapactiy = capacity;
+            Colour = colour;
+            Services = servcies;
+            Checkservice = checkservices;
             fuelPurchase = new FuelPurchase();
         }
 
@@ -37,9 +53,12 @@ namespace Develop_Open_Source_application
         /**
          * Prints details for {@link Vehicle}
          */
-        public string printDetails()
+        public string printDetails(string Manufacturer, string Model, int Year, string Rego, string Capacity, string Colour, string Odometer, double Distance, int Services, string Revenue, string ReqServ)
         {
-            string value = "Vehicle: " + makeYear + " " + manufacturer + " " + model;
+            string value = "Manufacturer: " + Manufacturer + "\r\n" + "Model: " + Model + "\r\n" +
+            "Year: " + Year + "\r\n" + "Regestration: " + Rego + "\r\n" +
+            "Fuel Economy: " + Capacity + "\r\n" + "Colour: " + Colour + "\r\n" + "Odometer: " + Odometer + "\r\n" +
+            "Distance Travelled: " + Distance + "\r\n" + "Total Services: " + Services + "\r\n" + "Revenue Recorded: " + Revenue + "\r\n" + "Requires a Service: " + ReqServ + "\r\n";
             return value;
             // TODO Display additional information about this vehicle
         }
@@ -47,6 +66,11 @@ namespace Develop_Open_Source_application
 
         // TODO Create an addKilometers method which takes a parameter for distance travelled 
         // and adds it to the odometer reading. 
+        public double addKilometers(double meters, double total)
+        {
+            double difference = total - meters;
+            return difference;
+        }
 
         // adds fuel to the car
         public void addFuel(double litres, double price)
