@@ -103,49 +103,56 @@ namespace Develop_Open_Source_application
 
         private void btn_Pay_Click(object sender, EventArgs e)
         {
-            Vehicle vehicle = new Vehicle();
-            Journey journey = new Journey();
-            double total  = journey.addKilometers(Convert.ToInt32(txt_TotalOdometer.Text));
-            Vehicles[vehicleNo].TotalKm = total;
-            Vehicles[vehicleNo].Checkservice = txt_NeedService.Text;
-            double diff = vehicle.addKilometers(Vehicles[vehicleNo].TotalKm, Convert.ToUInt32(txt_TotalOdometer.Text));
-            string output = vehicle.printDetails(Vehicles[vehicleNo].Manufacturer, Vehicles[vehicleNo].Model, Vehicles[vehicleNo].MakeYear, Vehicles[vehicleNo].RegoNo, Vehicles[vehicleNo].TankCapactiy, Vehicles[vehicleNo].Colour, txt_OdometerReading.Text, diff, Vehicles[vehicleNo].Services, txt_Pay.Text, Vehicles[vehicleNo].Checkservice);
-            Console.WriteLine(output);
-            TabC.SelectTab(1);
-            LB_Vehicles.Items.Clear();
-            for (int i = 0; i < Vehicles.Length; i++)
+            try
             {
-                txt_Capacity.Text = Vehicles[i].TankCapactiy;
-                txt_Colour.Text = Vehicles[i].Colour;
-                txt_Manufacturer.Text = Vehicles[i].Manufacturer;
-                txt_Model.Text = Vehicles[i].Model;
-                txt_Rego.Text = Vehicles[i].RegoNo;
-                txt_OdometerReading.Text = Convert.ToString(Vehicles[i].TotalKm);
-                txt_Year.Text = Convert.ToString(Vehicles[i].MakeYear);
-                txt_TotalServices.Text = Convert.ToString(Vehicles[i].Services);
-                txt_CheckService.Text = Vehicles[i].Checkservice;
-                lbl_RentalManu.Text = Vehicles[i].Manufacturer;
-                lbl_RentalModel.Text = Vehicles[i].Model;
-                lbl_RentalRego.Text = Vehicles[i].RegoNo;
-                string Name = Vehicles[i].Manufacturer + " " + Vehicles[i].Model + " " + Vehicles[i].MakeYear;
-                LB_Vehicles.Items.Add(Name);
+                Vehicle vehicle = new Vehicle();
+                Journey journey = new Journey();
+                double total = journey.addKilometers(Convert.ToInt32(txt_TotalOdometer.Text));
+                Vehicles[vehicleNo].TotalKm = total;
+                Vehicles[vehicleNo].Checkservice = txt_NeedService.Text;
+                double diff = vehicle.addKilometers(Vehicles[vehicleNo].TotalKm, Convert.ToUInt32(txt_TotalOdometer.Text));
+                string output = vehicle.printDetails(Vehicles[vehicleNo].Manufacturer, Vehicles[vehicleNo].Model, Vehicles[vehicleNo].MakeYear, Vehicles[vehicleNo].RegoNo, Vehicles[vehicleNo].TankCapactiy, Vehicles[vehicleNo].Colour, txt_OdometerReading.Text, diff, Vehicles[vehicleNo].Services, txt_Pay.Text, Vehicles[vehicleNo].Checkservice);
+                Console.WriteLine(output);
+                TabC.SelectTab(1);
+                LB_Vehicles.Items.Clear();
+                for (int i = 0; i < Vehicles.Length; i++)
+                {
+                    txt_Capacity.Text = Vehicles[i].TankCapactiy;
+                    txt_Colour.Text = Vehicles[i].Colour;
+                    txt_Manufacturer.Text = Vehicles[i].Manufacturer;
+                    txt_Model.Text = Vehicles[i].Model;
+                    txt_Rego.Text = Vehicles[i].RegoNo;
+                    txt_OdometerReading.Text = Convert.ToString(Vehicles[i].TotalKm);
+                    txt_Year.Text = Convert.ToString(Vehicles[i].MakeYear);
+                    txt_TotalServices.Text = Convert.ToString(Vehicles[i].Services);
+                    txt_CheckService.Text = Vehicles[i].Checkservice;
+                    lbl_RentalManu.Text = Vehicles[i].Manufacturer;
+                    lbl_RentalModel.Text = Vehicles[i].Model;
+                    lbl_RentalRego.Text = Vehicles[i].RegoNo;
+                    string Name = Vehicles[i].Manufacturer + " " + Vehicles[i].Model + " " + Vehicles[i].MakeYear;
+                    LB_Vehicles.Items.Add(Name);
+                }
+                txt_Capacity.Text = "";
+                txt_CheckService.Text = "";
+                txt_Colour.Text = "";
+                txt_Manufacturer.Text = "";
+                txt_Model.Text = "";
+                txt_NeedService.Text = "";
+                txt_OdometerReading.Text = "";
+                txt_Pay.Text = "";
+                txt_Rego.Text = "";
+                txt_TotalOdometer.Text = "";
+                txt_TotalServices.Text = "";
+                txt_Year.Text = "";
+                lbl_RentalManu.Text = "Manufacturer";
+                lbl_RentalModel.Text = "Model";
+                lbl_RentalRego.Text = "RegoNo";
+                vehicleNo = 0;
             }
-            txt_Capacity.Text = "";
-            txt_CheckService.Text = "";
-            txt_Colour.Text = "";
-            txt_Manufacturer.Text = "";
-            txt_Model.Text = "";
-            txt_NeedService.Text = "";
-            txt_OdometerReading.Text = "";
-            txt_Pay.Text = "";
-            txt_Rego.Text = "";
-            txt_TotalOdometer.Text = "";
-            txt_TotalServices.Text = "";
-            txt_Year.Text = "";
-            lbl_RentalManu.Text = "Manufacturer";
-            lbl_RentalModel.Text = "Model";
-            lbl_RentalRego.Text = "RegoNo";
-            vehicleNo = 0;           
+            catch (Exception)
+            {
+                MessageBox.Show("Incorrect Details");
+            }        
         }
 
         private void btn_CheckIn_Click(object sender, EventArgs e)
@@ -163,7 +170,7 @@ namespace Develop_Open_Source_application
                 }
                 else
                 {
-                    MessageBox.Show("This car is unavailable");
+                    MessageBox.Show("This car is due for service");
                 }
             }
             else
@@ -175,6 +182,10 @@ namespace Develop_Open_Source_application
         private void btn_Update_Click(object sender, EventArgs e)
         {
             Service service = new Service();
+            if (txt_CheckService.Text == "N")
+            {
+                MessageBox.Show("This car doesn't need a service");
+            }
             if (txt_CheckService.Text == "Y")
             {
                 int count = Vehicles[vehicleNo].Services;
