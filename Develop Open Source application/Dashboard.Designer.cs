@@ -200,12 +200,14 @@
             // 
             // btn_Update
             // 
-            this.btn_Update.Location = new System.Drawing.Point(655, 351);
+            this.btn_Update.BackColor = System.Drawing.Color.OrangeRed;
+            this.btn_Update.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btn_Update.Location = new System.Drawing.Point(655, 356);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(100, 33);
             this.btn_Update.TabIndex = 22;
             this.btn_Update.Text = "Service";
-            this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.UseVisualStyleBackColor = false;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_CheckOut

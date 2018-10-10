@@ -8,32 +8,25 @@ namespace Develop_Open_Source_application
 {
     public class Vehicle
     {
+        //getter and setter methods
         public String Manufacturer { get; set; }
         public String Model { get; set; }
         public int MakeYear { get; set; }
         public string RegoNo { get; set; }
         public double TotalKm { get; set; }
-        public string TankCapactiy { get; set; } 
+        public string TankCapactiy { get; set; }
         public string Colour { get; set; }
         public int Services { get; set; }
         public string Checkservice { get; set; }
-        // TODO add Registration Number 
-        // TODO add variable for OdometerReading (in KM), 
-        // TODO add variable for TankCapacity (in litres)
-
         private FuelPurchase fuelPurchase;
 
-        /**
-         * Class constructor specifying name of make (manufacturer), model and year
-         * of make.
-         * @param manufacturer
-         * @param model
-         * @param makeYear
-         */
+        //null constructor
         public Vehicle()
         {
 
         }
+
+        //class constructor method
         public Vehicle(String manufacturer, String model, int year, string regoNo, double totalKm, string capacity, string colour, int servcies, string checkservices)
         {
             Manufacturer = manufacturer;
@@ -48,12 +41,8 @@ namespace Develop_Open_Source_application
             fuelPurchase = new FuelPurchase();
         }
 
-        // TODO Add missing getter and setter methods
-
-        /**
-         * Prints details for {@link Vehicle}
-         */
-        public string printDetails(string Manufacturer, string Model, int Year, string Rego, string Capacity, string Colour, string Odometer, double Distance, int Services, string Revenue, string ReqServ)
+        //print details for the user
+        public string printDetails(string Manufacturer, string Model, int Year, string Rego, string Capacity, string Colour, double Odometer, double Distance, int Services, string Revenue, string ReqServ)
         {
             string value = "Manufacturer: " + Manufacturer + "\r\n" + "Model: " + Model + "\r\n" +
             "Year: " + Year + "\r\n" + "Regestration: " + Rego + "\r\n" +
@@ -63,9 +52,7 @@ namespace Develop_Open_Source_application
             // TODO Display additional information about this vehicle
         }
 
-
-        // TODO Create an addKilometers method which takes a parameter for distance travelled 
-        // and adds it to the odometer reading. 
+        //calculate the total km the user has done
         public double addKilometers(double meters, double total)
         {
             double difference = total - meters;

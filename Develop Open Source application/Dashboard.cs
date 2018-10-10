@@ -12,13 +12,16 @@ namespace Develop_Open_Source_application
 {
     public partial class Dashboard : Form
     {
+        //last vehicle selected
         int vehicleNo;
+        //vehicle array
         Vehicle[] Vehicles = new Vehicle[6];
         public Dashboard()
         {
             InitializeComponent();
         }
 
+        //button click for log in
         private void btn_Login_Click(object sender, EventArgs e)
         {
             if (txt_Username.Text == "1234" && txt_Password.Text == "1234")
@@ -34,6 +37,7 @@ namespace Develop_Open_Source_application
             }
         }
 
+        //on form load add these vehicle to the array
         private void Dashboard_Load(object sender, EventArgs e)
         {
             Vehicles[0] = new Vehicle("Ford", "Fiesta", 2017, "1ABC777", 100569, "5.8 L/100km", "Red", 10, "Y");
@@ -46,14 +50,15 @@ namespace Develop_Open_Source_application
             {
                 if (Vehicles[i].Manufacturer != null)
                 {
-                    string Name = Vehicles[i].Manufacturer + " " + Vehicles[i].Model + " " + Vehicles[i].MakeYear;
+                    string Name = Vehicles[i].Manufacturer + " " + Vehicles[i].Model + " " + Vehicles[i].MakeYear;      //add these vehicles to the ListBox
                     LB_Vehicles.Items.Add(Name);
                 }
             }
-            TP_Dashboard.Enabled = false;
+            TP_Dashboard.Enabled = false;   //make these screens disabled
             TP_Rental.Enabled = false;
         }
 
+        //when user presses on a vehicle in the listbox
         private void LB_Vehicles_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < Vehicles.Length; i++)
@@ -66,7 +71,7 @@ namespace Develop_Open_Source_application
                     txt_Manufacturer.Text = Vehicles[i].Manufacturer;
                     txt_Model.Text = Vehicles[i].Model;
                     txt_Rego.Text = Vehicles[i].RegoNo;
-                    txt_OdometerReading.Text = Convert.ToString(Vehicles[i].TotalKm);
+                    txt_OdometerReading.Text = Convert.ToString(Vehicles[i].TotalKm);           //change textbox values for selected vehicle
                     txt_Year.Text = Convert.ToString(Vehicles[i].MakeYear);
                     txt_TotalServices.Text = Convert.ToString(Vehicles[i].Services);
                     txt_CheckService.Text = Vehicles[i].Checkservice;
@@ -75,9 +80,20 @@ namespace Develop_Open_Source_application
                     lbl_RentalRego.Text = Vehicles[i].RegoNo;
                     vehicleNo = i;
                 }
+                if (txt_CheckService.Text == "Y")
+                {
+                    btn_Update.BackColor = Color.Red;
+                    txt_CheckService.BackColor = Color.Red;
+                }
+                if (txt_CheckService.Text == "N")
+                {
+                    btn_Update.BackColor = SystemColors.Control;
+                    txt_CheckService.BackColor = Color.White;
+                }
             }
         }
 
+        //calculate the total km that the user has done and display the cost.
         private void btn_CalcDifference_Click(object sender, EventArgs e)
         {
             Vehicle vehicle = new Vehicle();
@@ -101,6 +117,7 @@ namespace Develop_Open_Source_application
             }         
         }
 
+        //pay method that will check to see how much km the vehicle has done, and if it needs a service.
         private void btn_Pay_Click(object sender, EventArgs e)
         {
             try
@@ -108,10 +125,10 @@ namespace Develop_Open_Source_application
                 Vehicle vehicle = new Vehicle();
                 Journey journey = new Journey();
                 double total = journey.addKilometers(Convert.ToInt32(txt_TotalOdometer.Text));
+                double diff = vehicle.addKilometers(Vehicles[vehicleNo].TotalKm, Convert.ToUInt32(txt_TotalOdometer.Text));
                 Vehicles[vehicleNo].TotalKm = total;
                 Vehicles[vehicleNo].Checkservice = txt_NeedService.Text;
-                double diff = vehicle.addKilometers(Vehicles[vehicleNo].TotalKm, Convert.ToUInt32(txt_TotalOdometer.Text));
-                string output = vehicle.printDetails(Vehicles[vehicleNo].Manufacturer, Vehicles[vehicleNo].Model, Vehicles[vehicleNo].MakeYear, Vehicles[vehicleNo].RegoNo, Vehicles[vehicleNo].TankCapactiy, Vehicles[vehicleNo].Colour, txt_OdometerReading.Text, diff, Vehicles[vehicleNo].Services, txt_Pay.Text, Vehicles[vehicleNo].Checkservice);
+                string output = vehicle.printDetails(Vehicles[vehicleNo].Manufacturer, Vehicles[vehicleNo].Model, Vehicles[vehicleNo].MakeYear, Vehicles[vehicleNo].RegoNo, Vehicles[vehicleNo].TankCapactiy, Vehicles[vehicleNo].Colour, Vehicles[vehicleNo].TotalKm, diff, Vehicles[vehicleNo].Services, txt_Pay.Text, Vehicles[vehicleNo].Checkservice);
                 Console.WriteLine(output);
                 TabC.SelectTab(1);
                 LB_Vehicles.Items.Clear();
@@ -121,8 +138,8 @@ namespace Develop_Open_Source_application
                     txt_Colour.Text = Vehicles[i].Colour;
                     txt_Manufacturer.Text = Vehicles[i].Manufacturer;
                     txt_Model.Text = Vehicles[i].Model;
-                    txt_Rego.Text = Vehicles[i].RegoNo;
-                    txt_OdometerReading.Text = Convert.ToString(Vehicles[i].TotalKm);
+                    txt_Rego.Text = Vehicles[i].RegoNo; 
+                    txt_OdometerReading.Text = Convert.ToString(Vehicles[i].TotalKm);           //reload the listbox with updated values
                     txt_Year.Text = Convert.ToString(Vehicles[i].MakeYear);
                     txt_TotalServices.Text = Convert.ToString(Vehicles[i].Services);
                     txt_CheckService.Text = Vehicles[i].Checkservice;
@@ -135,7 +152,7 @@ namespace Develop_Open_Source_application
                 txt_Capacity.Text = "";
                 txt_CheckService.Text = "";
                 txt_Colour.Text = "";
-                txt_Manufacturer.Text = "";
+                txt_Manufacturer.Text = "";             //null the textboxes
                 txt_Model.Text = "";
                 txt_NeedService.Text = "";
                 txt_OdometerReading.Text = "";
@@ -160,11 +177,12 @@ namespace Develop_Open_Source_application
             TabC.SelectTab(2);
         }
 
+        //checkout vehicle button
         private void btn_CheckOut_Click(object sender, EventArgs e)
         {
             if (LB_Vehicles.SelectedItem != null)
             {
-                if (txt_CheckService.Text == "N")
+                if (txt_CheckService.Text == "N")       //check to see if the vehicle needs service
                 {
                     MessageBox.Show("Enjoy your rental car");
                 }
@@ -175,10 +193,11 @@ namespace Develop_Open_Source_application
             }
             else
             {
-                MessageBox.Show("Please select are car");
+                MessageBox.Show("Please select a car");
             }
         }
 
+        //update the service on the selected vehicle.
         private void btn_Update_Click(object sender, EventArgs e)
         {
             Service service = new Service();
@@ -194,6 +213,8 @@ namespace Develop_Open_Source_application
                 txt_TotalServices.Text = newserv.ToString();
                 txt_CheckService.Text = "N";
                 Vehicles[vehicleNo].Checkservice = txt_CheckService.Text;
+                btn_Update.BackColor = SystemColors.Control;
+                txt_CheckService.BackColor = Color.White;
             }
         }
     }

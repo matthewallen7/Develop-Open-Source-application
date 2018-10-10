@@ -14,8 +14,13 @@ namespace Develop_Open_Source_application.Tests
         [TestMethod()]
         public void printDetailsTest()
         {
+            //Arrange
             Vehicle test = new Vehicle();
+
+            //Act
             string output = test.printDetails("Audi", "Spyder", 2018, "1PLS110", "11.4L/100km", "Red", "35000", 5000, 3, "5000", "N");
+
+            //Assert
             Assert.IsTrue(output == "Manufacturer: " + "Audi" + "\r\n" + "Model: " + "Spyder" + "\r\n" +
             "Year: " + 2018 + "\r\n" + "Regestration: " + "1PLS110" + "\r\n" +
             "Fuel Economy: " + "11.4L/100km" + "\r\n" + "Colour: " + "Red" + "\r\n" + "Odometer: " + "35000" + "\r\n" +
@@ -25,8 +30,13 @@ namespace Develop_Open_Source_application.Tests
         [TestMethod()]
         public void addKilometersTest()
         {
+            //Arrange
             Vehicle test = new Vehicle();
+
+            //Act
             double value = test.addKilometers(30000, 35000);
+
+            //Assert
             Assert.IsTrue(value == 5000);
         }
     }

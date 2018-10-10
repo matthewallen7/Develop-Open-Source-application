@@ -14,9 +14,14 @@ namespace Develop_Open_Source_application.Tests
         [TestMethod()]
         public void recordServiceTest()
         {
+            //Arrange
             Service test = new Service();
+
+            //Act
             string no = test.recordService(10, 109000);
             string yes = test.recordService(10, 110000);
+
+            //Assert
             Assert.IsTrue(no == "N" && yes == "Y");
         }
     }

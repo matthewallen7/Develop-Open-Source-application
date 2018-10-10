@@ -1,0 +1,1 @@
+Hello, thank you for using my program. To start open the .sln file and run in your IDE. To login Username = "1234" && Password = "1234". Enjoy :)

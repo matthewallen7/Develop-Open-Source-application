@@ -13,7 +13,6 @@ namespace Develop_Open_Source_application
 
         private int lastServiceOdometerKm = 0;
         private string lastServiceDate;
-        // TODO add lastServiceDate
 
         // return the last service
         public int getLastServiceOdometerKm()
@@ -21,11 +20,7 @@ namespace Develop_Open_Source_application
             return this.lastServiceOdometerKm;
         }
 
-        /**
-         * The function recordService expects the total distance traveled by the car, 
-         * saves it and increase serviceCount.
-         * @param distance 
-         */
+        //method to issue a service result for the vehicle
         public string recordService(int services, double distance)
         {
             int nextService = (services + 1) * SERVICE_KILOMETER_LIMIT;
@@ -45,12 +40,5 @@ namespace Develop_Open_Source_application
             services++;
             return services;
         }
-
-        /**
-         * Calculates the total services by dividing kilometers by
-         * {@link #SERVICE_KILOMETER_LIMIT} and floors the value. 
-         * 
-         * @return the number of services needed per SERVICE_KILOMETER_LIMIT
-         */
     }
 }
